@@ -11,14 +11,12 @@ class ParserArgs(TypedDict):
     pass
 
 
-def print_version() -> None:
-    print(f"{NAME}, version {get_version()}")
-
-
 def get_arg_parser() -> ArgumentParser:
     parser = ArgumentParser(prog=NAME)
 
-    parser.add_argument("--version", "-V", action=print_version)
+    parser.add_argument(
+        "--version", "-V", action="version", version=f"{NAME}, version {get_version()}"
+    )
 
     return parser
 
