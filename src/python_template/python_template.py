@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, Namespace
-from logging import DEBUG, INFO, basicConfig, getLogger
+from logging import DEBUG, INFO, WARNING, basicConfig, getLogger
 from typing import TypedDict
 from typing_extensions import Unpack
 
@@ -7,6 +7,8 @@ from python_template.version import get_version
 
 
 NAME = "python_template"
+
+DEFAULT_LOG_LEVEL = WARNING
 
 
 logger = getLogger(NAME)
@@ -33,6 +35,7 @@ def get_arg_parser() -> ArgumentParser:
         help="Set the loglevel to INFO",
         action="store_const",
         const=INFO,
+        default=DEFAULT_LOG_LEVEL
     )
     parser.add_argument(
         "-vv",
@@ -47,7 +50,11 @@ def get_arg_parser() -> ArgumentParser:
 
 
 def init_logging(args: Namespace) -> None:
-    log_format = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
+    if args.log_level < INFO:
+        log_format = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
+    else:
+        log_format = "%(levelname)s: %(message)s"
+
     basicConfig(
         level=args.log_level, format=log_format, datefmt="%Y-%m-%d %H:%M:%S"
     )
