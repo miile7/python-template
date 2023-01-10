@@ -4,14 +4,12 @@ from typing import TypedDict
 from typing_extensions import Unpack
 
 from python_template.version import get_version
-
-
-NAME = "python_template"
+from python_template.static import NAME, SLUG
 
 DEFAULT_LOG_LEVEL = WARNING
 
 
-logger = getLogger(NAME)
+logger = getLogger(SLUG)
 
 
 class ParserArgs(TypedDict, total=False):
@@ -23,10 +21,10 @@ def run(args: Namespace) -> None:
 
 
 def get_arg_parser() -> ArgumentParser:
-    parser = ArgumentParser(prog=NAME)
+    parser = ArgumentParser(prog=SLUG, description=NAME)
 
     parser.add_argument(
-        "--version", "-V", action="version", version=f"{NAME}, version {get_version()}"
+        "--version", "-V", action="version", version=f"{SLUG}, version {get_version()}"
     )
     parser.add_argument(
         "-v",
