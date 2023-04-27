@@ -1,5 +1,5 @@
 [tool.poetry]
-name = ""
+name = "python_template"
 version = "0.0.1"
 description = ""
 authors = [""]
